@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TruthLens | Advanced Fake News Detection</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="background-globes">
+        <div class="globe globe-1"></div>
+        <div class="globe globe-2"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fa-solid fa-layer-group"></i> TruthLens
+            </div>
+            <nav>
+                <a href="{{ url_for('home') }}" class="active">Detector</a>
+                <a href="{{ url_for('about') }}">About</a>
+                <button class="theme-toggle"><i class="fa-solid fa-moon"></i></button>
+            </nav>
+        </header>
+
+        <main>
+            <section class="hero">
+                <h1>Verify the Truth provided by the <span class="gradient-text">News</span></h1>
+                <p>Advanced AI-powered analysis to detect misinformation in seconds.</p>
+            </section>
+
+            <section class="analyzer-card">
+                <div class="input-group">
+                    <textarea id="newsInput" placeholder="Paste the news article or headline here..."
+                        rows="5"></textarea>
+                    <div class="input-footer">
+                        <span id="charCount">0 characters</span>
+                        <button id="analyzeBtn" onclick="analyzeNews()">
+                            <span>Analyze content</span>
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="resultContainer" class="result-container hidden">
+                    <div class="result-header">
+                        <h3>Analysis Result</h3>
+                        <div class="confidence-badge">
+                            Confidence: <span id="confidenceScore">0%</span>
+                        </div>
+                    </div>
+                    <div class="result-body">
+                        <div id="verdictIcon" class="verdict-icon"></div>
+                        <div class="verdict-text">
+                            <h2 id="verdictTitle">--</h2>
+                            <p id="verdictDesc">Based on our linguistic analysis, this text appears to be...</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 Fake News Detection Project. Powered by Scikit-Learn.</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+
+</html>

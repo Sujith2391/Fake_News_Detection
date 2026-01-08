@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | TruthLens</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="background-globes">
+        <div class="globe globe-1"></div>
+        <div class="globe globe-2"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fa-solid fa-layer-group"></i> TruthLens
+            </div>
+            <nav>
+                <a href="{{ url_for('home') }}">Detector</a>
+                <a href="{{ url_for('about') }}" class="active">About</a>
+                <button class="theme-toggle"><i class="fa-solid fa-moon"></i></button>
+            </nav>
+        </header>
+
+        <main>
+            <section class="hero">
+                <h1>About <span class="gradient-text">TruthLens</span></h1>
+                <p>Bringing transparency to the information age.</p>
+            </section>
+
+            <section class="analyzer-card">
+                <div class="about-content">
+                    <h3>Our Mission</h3>
+                    <p>In an era of rapid information spread, distinguishing fact from fiction is more challenging than
+                        ever. TruthLens leverages advanced machine learning algorithms to analyze text patterns and
+                        identify potential misinformation.</p>
+
+                    <h3>How It Works</h3>
+                    <p>We use a Logistic Regression model trained on the LIAR dataset, a benchmark for fake news
+                        detection. Our system analyzes:</p>
+                    <ul>
+                        <li><i class="fa-solid fa-check"></i> Vocabulary and phrasing</li>
+                        <li><i class="fa-solid fa-check"></i> Sentiment analysis</li>
+                        <li><i class="fa-solid fa-check"></i> Linguistic patterns specific to reputable vs. unreliable
+                            sources</li>
+                    </ul>
+
+                    <h3>The Technology</h3>
+                    <p>Built with Python, Flask, and Scikit-Learn. The model uses TF-IDF vectorization to convert text
+                        into meaningful numerical features for classification.</p>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 Fake News Detection Project. Powered by Scikit-Learn.</p>
+        </footer>
+    </div>
+
+    <style>
+        .about-content {
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .about-content h3 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+
+        .about-content h3:first-child {
+            margin-top: 0;
+        }
+
+        .about-content ul {
+            list-style: none;
+            margin: 1rem 0;
+            padding-left: 1rem;
+        }
+
+        .about-content li {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .about-content li i {
+            color: var(--success-color);
+        }
+    </style>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+
+</html>
