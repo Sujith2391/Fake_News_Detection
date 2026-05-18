@@ -9,26 +9,32 @@ import os
 
 class DataProcessor:
     def __init__(self):
+        # Configure NLTK to use /tmp/nltk_data for Vercel compatibility (read-only filesystem)
+        nltk_data_dir = '/tmp/nltk_data'
+        os.makedirs(nltk_data_dir, exist_ok=True)
+        if nltk_data_dir not in nltk.data.path:
+            nltk.data.path.append(nltk_data_dir)
+
         # Ensure NLTK resources are downloaded
         try:
             nltk.data.find('corpora/stopwords')
         except LookupError:
-            nltk.download('stopwords')
+            nltk.download('stopwords', download_dir=nltk_data_dir)
         
         try:
             nltk.data.find('corpora/wordnet')
         except LookupError:
-            nltk.download('wordnet')
+            nltk.download('wordnet', download_dir=nltk_data_dir)
         
         try:
             nltk.data.find('tokenizers/punkt')
         except LookupError:
-            nltk.download('punkt')
+            nltk.download('punkt', download_dir=nltk_data_dir)
         
         try:
             nltk.data.find('tokenizers/punkt_tab')
         except LookupError:
-            nltk.download('punkt_tab')
+            nltk.download('punkt_tab', download_dir=nltk_data_dir)
 
         self.lemmatizer = WordNetLemmatizer()
         self.stop_words = set(stopwords.words('english'))
