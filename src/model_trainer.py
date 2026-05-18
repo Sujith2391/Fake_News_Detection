@@ -52,3 +52,26 @@ class ModelTrainer:
     def predict_proba(self, text):
         """Predicts probabilities."""
         return self.pipeline.predict_proba([text])[0]
+
+    def predict_with_confidence(self, text):
+        """Predicts the class and confidence score, mapping to REAL or FAKE safely."""
+        prediction = self.predict(text)
+        probabilities = self.predict_proba(text)
+        confidence = float(max(probabilities))
+        
+        # Robustly interpret the prediction label
+        pred_str = str(prediction).strip().upper()
+        # In train.csv, true statements have label 'TRUE' (or boolean True), which means REAL news
+        # FALSE or False means FAKE news
+        if pred_str in ('1', 'TRUE', 'T', 'REAL'):
+            result = "REAL"
+            is_fake = False
+        else:
+            result = "FAKE"
+            is_fake = True
+            
+        return {
+            'result': result,
+            'confidence': f"{confidence * 100:.2f}%",
+            'is_fake': is_fake
+        }

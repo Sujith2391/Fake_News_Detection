@@ -32,6 +32,7 @@ class DataProcessor:
 
         self.lemmatizer = WordNetLemmatizer()
         self.stop_words = set(stopwords.words('english'))
+        self.clean_pattern = re.compile(r'[^a-zA-Z\s]')
 
     def clean_text(self, text):
         """
@@ -46,7 +47,7 @@ class DataProcessor:
             return ""
         
         # Remove non-alphabetic characters
-        text = re.sub(r'[^a-zA-Z\s]', '', text)
+        text = self.clean_pattern.sub('', text)
         
         # Lowercase
         text = text.lower()

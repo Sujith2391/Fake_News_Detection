@@ -27,6 +27,10 @@ def about():
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
+        # Check if the model is actually loaded
+        if not hasattr(trainer, 'pipeline'):
+            return jsonify({'error': 'Model is not trained or could not be loaded. Please run src/train.py first.'}), 500
+
         data = request.get_json()
         if not data or 'text' not in data:
             return jsonify({'error': 'No text provided'}), 400
@@ -36,31 +40,13 @@ def predict():
         # Preprocess
         cleaned_text = processor.clean_text(text)
         
-        # Predict
-        prediction_label = trainer.predict(cleaned_text)
-        probabilities = trainer.predict_proba(cleaned_text)
+        # Predict using the robust model logic
+        prediction_data = trainer.predict_with_confidence(cleaned_text)
         
-        # Map label to class name (assuming 0=True, 1=False or vice versa based on training labels)
-        # In LIAR dataset: 
-        # Original mapping in DataPrep.py was erratic, but let's assume binary classification.
-        # We need to know what the model output means.
-        # Based on classifier.py: "Prediction of the News : Looking Fake News" if prediction[0] == 0 
-        # This implies 0 is Fake, 1 is Real? Or vice-versa?
-        # Let's check the training data labels. 
-        # Wait, in the original 'front.py': if prediction[0] == 0: print("Fake") else: print("Real")
-        # So 0 -> Fake, 1 -> Real.
-        
-        result = "REAL" if prediction_label == 1 else "FAKE"
-        confidence = float(max(probabilities))
-        
-        return jsonify({
-            'result': result,
-            'confidence': f"{confidence * 100:.2f}%",
-            'is_fake': int(prediction_label) == 0
-        })
+        return jsonify(prediction_data)
 
     except Exception as e:
-        print(f"Error: {e}")
+        print(f"Error in prediction: {e}")
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
