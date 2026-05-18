@@ -1,6 +1,8 @@
 
 # TruthLens: Advanced Fake News Detection System
 
+**Live Demo**: [https://fake-news-detection-iota-one.vercel.app/](https://fake-news-detection-iota-one.vercel.app/)
+
 TruthLens is a state-of-the-art web application designed to identify misinformation in news articles and headlines. Powered by Machine Learning and Natural Language Processing (NLP), it provides instant credibility scores with a premium, modern user interface.
 
 ## 🚀 Features
